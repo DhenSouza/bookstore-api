@@ -53,6 +53,6 @@ public class CategoriaResource {
 		Categoria newObj = service.update(id, objDto);
 		return ResponseEntity.ok().body(new CategoriaDTO(newObj));
 	}
-	
+	 
 
 }
