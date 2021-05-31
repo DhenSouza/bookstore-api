@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-@Entity(name = "Categoria")
+@Entity
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,6 @@ public class Categoria implements Serializable {
 	@NotEmpty(message = "Campo DESCRIÇÃO é requerido")
 	@Length(min = 3, max = 200, message = "O campo DESCRIÇÃO deve ter entre 3 e 200 caracteres")
 	private String descricao;
-	
 
 	@OneToMany(mappedBy = "categoria")
 	private List<Livro> livros = new ArrayList<>();

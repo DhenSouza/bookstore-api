@@ -12,14 +12,15 @@ import com.denilson.bookstore.repositories.LivroRepository;
 
 @Service
 public class DBService {
-	
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+
 	@Autowired
 	private LivroRepository livroRepository;
-	
+
 	public void instanciaBaseDeDados() {
-		
+
 		Categoria cat1 = new Categoria(null, "Informática", "Livros de informatica");
 		Categoria cat2 = new Categoria(null, "Ficção Científica", "Ficção Científica");
 		Categoria cat3 = new Categoria(null, "Biografias", "Livros de Biografias");
