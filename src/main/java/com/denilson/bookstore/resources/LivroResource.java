@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/livros")
@@ -28,5 +29,7 @@ public class LivroResource {
     public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0") Integer id_cat) {
         // localhost:8080/livros?categoria=1
         List<Livro> list = service.findAll(id_cat);
+        List<LivroDTO> listDTO = list.stream().map(obj -> new LivroDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 }
