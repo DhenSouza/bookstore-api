@@ -32,4 +32,17 @@ public class LivroResource {
         List<LivroDTO> listDTO = list.stream().map(obj -> new LivroDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+    
+    // Atualiza toda a informação da entidade
+    @PutMapping(value="/{id}")
+    public ResponseEntity<Livro> update(@PathVariable Integer id, @RequestBody Livro obj) {
+    	Livro newObj = service.update(id, obj);
+    	return ResponseEntity.ok().body(newObj);
+    }
+    // Atualiza somente uma informação da entidade
+    @PatchMapping(value="/{id}")
+    public ResponseEntity<Livro> updatePatch(@PathVariable Integer id, @RequestBody Livro obj) {
+    	Livro newObj = service.update(id, obj);
+    	return ResponseEntity.ok().body(newObj);
+    }
 }
