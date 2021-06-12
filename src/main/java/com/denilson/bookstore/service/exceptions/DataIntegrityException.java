@@ -1,14 +1,14 @@
 package com.denilson.bookstore.service.exceptions;
 
-public class DataIntegrityViolationException extends RuntimeException{
+public class  DataIntegrityException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 
-	public DataIntegrityViolationException(String message, Throwable cause) {
+	public  DataIntegrityException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public DataIntegrityViolationException(String message) {
+	public  DataIntegrityException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}

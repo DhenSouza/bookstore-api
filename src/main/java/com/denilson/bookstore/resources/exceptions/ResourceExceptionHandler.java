@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.denilson.bookstore.service.exceptions.DataIntegrityViolationException;
+import com.denilson.bookstore.service.exceptions.DataIntegrityException;
 import com.denilson.bookstore.service.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -20,8 +20,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException e,
+	@ExceptionHandler( DataIntegrityException.class)
+	public ResponseEntity<StandardError> dataIntegrityViolationException( DataIntegrityException e,
 			ServletRequest request) {
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
 				e.getMessage());
