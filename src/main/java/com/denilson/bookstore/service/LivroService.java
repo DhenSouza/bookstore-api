@@ -1,33 +1,36 @@
 package com.denilson.bookstore.service;
 
-import com.denilson.bookstore.domain.Livro;
-import com.denilson.bookstore.repositories.LivroRepository;
-import com.denilson.bookstore.service.exceptions.ObjectNotFoundException;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.denilson.bookstore.domain.Categoria;
+import com.denilson.bookstore.domain.Livro;
+import com.denilson.bookstore.repositories.LivroRepository;
+import com.denilson.bookstore.service.exceptions.ObjectNotFoundException;
 
 //Criar uma dependencia
 @Service
 public class LivroService {
-    // Vai informar ao spring que ira criar e gerenciar a instancia.
-    @Autowired
-    private LivroRepository repository;
+	// Vai informar ao spring que ira criar e gerenciar a instancia.
+	@Autowired
+	private LivroRepository repository;
 
-    @Autowired
-    private CategoriaService categoriaService;
+	@Autowired
+	private CategoriaService categoriaService;
 
-    public Livro findById(Integer id) {
-        Optional<Livro> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id + ", Tipo: " + Livro.class.getName()));
-    }
+	public Livro findById(Integer id) {
+		Optional<Livro> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! id: " + id + ", Tipo: " + Livro.class.getName()));
+	}
 
-    public List<Livro> findAll(Integer id_cat) {
-        categoriaService.findById(id_cat);
-        return repository.findAllByCategoria(id_cat);
-    }
+	public List<Livro> findAll(Integer id_cat) {
+		categoriaService.findById(id_cat);
+		return repository.findAllByCategoria(id_cat);
+	}
 
 	public Livro update(Integer id, Livro obj) {
 		Livro newObj = findById(id);
@@ -39,5 +42,12 @@ public class LivroService {
 		newObj.setTitulo(obj.getTitulo());
 		newObj.setNome_autor(obj.getNome_autor());
 		newObj.setTexto(obj.getTexto());
+	}
+
+	public Livro create(Integer id_cat, Livro obj) {
+		obj.setId(null);
+		Categoria cat = categoriaService.findById(id_cat);
+		obj.setCategoria(cat);
+		return repository.save(obj);
 	}
 }
