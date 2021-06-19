@@ -7,35 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.denilson.bookstore.domain.Categoria;
-import com.denilson.bookstore.dtos.CategoriaDTO;
-import com.denilson.bookstore.repositories.CategoriaRepository;
+import com.denilson.bookstore.domain.Category;
+import com.denilson.bookstore.dtos.CategoryDTO;
+import com.denilson.bookstore.repositories.CategoryRepository;
 import com.denilson.bookstore.service.exceptions.DataIntegrityException;
 import com.denilson.bookstore.service.exceptions.ObjectNotFoundException;
 
 @Service
-public class CategoriaService {
+public class CategoryService {
 
 	@Autowired
-	private CategoriaRepository repository;
+	private CategoryRepository repository;
 	
-	public Categoria findById(Integer id) {
-		Optional<Categoria> obj = repository.findById(id);
+	public Category findById(Integer id) {
+		Optional<Category> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
 	}
 
-	public List<Categoria> findAll() {
+	public List<Category> findAll() {
 		return repository.findAll();
 	}
 
-	public Categoria create(Categoria obj) {
+	public Category create(Category obj) {
 		obj.setId(null);
 		return repository.save(obj);
 	}
 
-	public Categoria update(Integer id, CategoriaDTO objDto) {
-		Categoria obj = findById(id);
+	public Category update(Integer id, CategoryDTO objDto) {
+		Category obj = findById(id);
 		obj.setNome(objDto.getNome());
 		obj.setDescricao(objDto.getDescricao());
 		return repository.save(obj);

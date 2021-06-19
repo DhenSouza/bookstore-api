@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Livro implements Serializable {
+public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -37,20 +37,20 @@ public class Livro implements Serializable {
 
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "categoria_id")
-	private Categoria categoria;
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-	public Livro() {
+	public Book() {
 		super();
 	}
 
-	public Livro(Integer id, String titulo, String nome_autor, String texto, Categoria categoria) {
+	public Book(Integer id, String titulo, String nome_autor, String texto, Category category) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.nome_autor = nome_autor;
 		this.texto = texto;
-		this.categoria = categoria;
+		this.category = category;
 	}
 
 	public Integer getId() {
@@ -85,12 +85,12 @@ public class Livro implements Serializable {
 		this.texto = texto;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Category getCategoria() {
+		return category;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoria(Category category) {
+		this.category = category;
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class Livro implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Livro other = (Livro) obj;
+		Book other = (Book) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

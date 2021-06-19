@@ -14,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-public class Categoria implements Serializable {
+public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,14 +30,14 @@ public class Categoria implements Serializable {
 	@Length(min = 3, max = 200, message = "O campo DESCRIÇÃO deve ter entre 3 e 200 caracteres")
 	private String descricao;
 
-	@OneToMany(mappedBy = "categoria")
-	private List<Livro> livros = new ArrayList<>();
+	@OneToMany(mappedBy = "category")
+	private List<Book> books = new ArrayList<>();
 
-	public Categoria() {
+	public Category() {
 		super();
 	}
 
-	public Categoria(Integer id, String nome, String descricao) {
+	public Category(Integer id, String nome, String descricao) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -68,12 +68,12 @@ public class Categoria implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public List<Livro> getLivros() {
-		return livros;
+	public List<Book> getLivros() {
+		return books;
 	}
 
-	public void setLivros(List<Livro> livros) {
-		this.livros = livros;
+	public void setLivros(List<Book> books) {
+		this.books = books;
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Category other = (Category) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

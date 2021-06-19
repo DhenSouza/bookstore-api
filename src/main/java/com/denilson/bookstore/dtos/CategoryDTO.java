@@ -6,9 +6,9 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.denilson.bookstore.domain.Categoria;
+import com.denilson.bookstore.domain.Category;
 
-public class CategoriaDTO implements Serializable{
+public class CategoryDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,12 +22,12 @@ public class CategoriaDTO implements Serializable{
 	@Length(min = 3, max = 200, message = "O campo DESCRIÇÃO deve ter entre 3 e 200 caracteres")
 	private String descricao;
 
-	public CategoriaDTO() {
+	public CategoryDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CategoriaDTO(Categoria obj) {
+	public CategoryDTO(Category obj) {
 		super();
 		this.id = obj.getId();
 		this.nome = obj.getNome();

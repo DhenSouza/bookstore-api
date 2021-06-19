@@ -6,9 +6,9 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.denilson.bookstore.domain.Livro;
+import com.denilson.bookstore.domain.Book;
 
-public class LivroDTO implements Serializable {
+public class BookDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -17,11 +17,11 @@ public class LivroDTO implements Serializable {
 	@Length(min = 3, max = 50, message = "O campo TITULO deve ter entre 3 e 50 caracteres")
     private String titulo;
 
-    public LivroDTO() {
+    public BookDTO() {
         super();
     }
 
-    public LivroDTO(Livro obj) {
+    public BookDTO(Book obj) {
         super();
         this.id = obj.getId();
         this.titulo = obj.getTitulo();
