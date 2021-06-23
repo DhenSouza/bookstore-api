@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 public class Category implements Serializable {
