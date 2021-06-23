@@ -23,7 +23,7 @@ import com.denilson.bookstore.dtos.CategoryDTO;
 import com.denilson.bookstore.service.CategoryService;
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("/categories")
 public class CategoryResource {
 
 	@Autowired

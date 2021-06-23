@@ -25,7 +25,7 @@ import com.denilson.bookstore.dtos.BookDTO;
 import com.denilson.bookstore.service.BookService;
 
 @RestController
-@RequestMapping("/livros")
+@RequestMapping("/books")
 public class BookResource {
 
 	@Autowired
@@ -41,7 +41,7 @@ public class BookResource {
 
 	@GetMapping
 	public ResponseEntity<List<BookDTO>> findAll(
-			@RequestParam(value = "categoria", defaultValue = "0") Integer id_cat) {
+			@RequestParam(value = "category", defaultValue = "0") Integer id_cat) {
 		// localhost:8080/livros?categoria=1
 		List<Book> list = service.findAll(id_cat);
 		List<BookDTO> listDTO = list.stream().map(obj -> new BookDTO(obj)).collect(Collectors.toList());
@@ -63,10 +63,10 @@ public class BookResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Book> create(@Valid @RequestParam(value = "categoria", defaultValue = "0") Integer id_cat,
+	public ResponseEntity<Book> create(@Valid @RequestParam(value = "category", defaultValue = "0") Integer id_cat,
 			@RequestBody Book obj) {
 		Book newObj = service.create(id_cat, obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/livros/{id}")
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/books/{id}")
 				.buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
