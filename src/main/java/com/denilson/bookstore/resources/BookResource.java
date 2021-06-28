@@ -25,52 +25,50 @@ import com.denilson.bookstore.domain.Book;
 import com.denilson.bookstore.dtos.BookDTO;
 import com.denilson.bookstore.service.BookService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/books")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BookResource {
 
 	@Autowired
 	private BookService service;
 
 	// Método para a Procura pelo Id de livro.
-	@GetMapping("/{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Book> findById(@PathVariable Integer id) {
 		Book obj = service.findById(id);
-
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<BookDTO>> findAll(
-			@RequestParam(value = "category", defaultValue = "0") Integer id_cat) {
+	public ResponseEntity<List<BookDTO>> findAll(@RequestParam(value = "category", defaultValue = "0") Integer cat_id) {
 		// localhost:8080/livros?categoria=1
-		List<Book> list = service.findAll(id_cat);
+		List<Book> list = service.findAll(cat_id);
 		List<BookDTO> listDTO = list.stream().map(obj -> new BookDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Book> create(@RequestParam(value = "category", defaultValue = "0") Integer id_cat,
+			@Valid @RequestBody Book obj) {
+		Book newObj = service.create(id_cat, obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/books/{id}")
+				.buildAndExpand(newObj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
 	// Atualiza toda a informação da entidade
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Book> update(@Valid @PathVariable Integer id, @RequestBody Book obj) {
+	public ResponseEntity<Book> update(@PathVariable Integer id, @Valid @RequestBody Book obj) {
 		Book newObj = service.update(id, obj);
 		return ResponseEntity.ok().body(newObj);
 	}
 
 	// Atualiza somente uma informação da entidade
 	@PatchMapping(value = "/{id}")
-	public ResponseEntity<Book> updatePatch(@Valid @PathVariable Integer id, @RequestBody Book obj) {
+	public ResponseEntity<Book> updatePatch(@PathVariable Integer id, @Valid @RequestBody Book obj) {
 		Book newObj = service.update(id, obj);
 		return ResponseEntity.ok().body(newObj);
-	}
-
-	@PostMapping
-	public ResponseEntity<Book> create(@Valid @RequestParam(value = "category", defaultValue = "0") Integer id_cat,
-			@RequestBody Book obj) {
-		Book newObj = service.create(id_cat, obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/books/{id}")
-				.buildAndExpand(newObj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
 	}
 
 	@DeleteMapping(value = "/{id}")

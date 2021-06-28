@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,9 +24,9 @@ import com.denilson.bookstore.domain.Category;
 import com.denilson.bookstore.dtos.CategoryDTO;
 import com.denilson.bookstore.service.CategoryService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/categories")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoryResource {
 
 	@Autowired
@@ -56,8 +57,14 @@ public class CategoryResource {
 		Category newObj = service.update(id, objDto);
 		return ResponseEntity.ok().body(new CategoryDTO(newObj));
 	}
+	
+	@PatchMapping(value = "/{id}")
+	public ResponseEntity<CategoryDTO> updatePatch(@PathVariable Integer id, @RequestBody CategoryDTO objDto) {
+		Category newObj = service.update(id, objDto);
+		return ResponseEntity.ok(new CategoryDTO(newObj));
+	}
 
-	@DeleteMapping(value = "{id}")
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
