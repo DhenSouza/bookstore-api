@@ -11,10 +11,10 @@ import com.denilson.bookstore.domain.Book;
 import com.denilson.bookstore.repositories.BookRepository;
 import com.denilson.bookstore.service.exceptions.ObjectNotFoundException;
 
-//Criar uma dependencia
+
 @Service
 public class BookService {
-	// Vai informar ao spring que ira criar e gerenciar a instancia.
+
 	@Autowired
 	private BookRepository repository;
 
@@ -27,9 +27,9 @@ public class BookService {
 				"Objeto não encontrado! id: " + id + ", Tipo: " + Book.class.getName()));
 	}
 
-	public List<Book> findAll(Integer id_cat) {
-		categoryService.findById(id_cat);
-		return repository.findAllByCategory(id_cat);
+	public List<Book> findAll(Integer cat_id) {
+		categoryService.findById(cat_id);
+		return repository.findAllByCategory(cat_id);
 	}
 
 	public Book update(Integer id, Book obj) {
@@ -39,14 +39,14 @@ public class BookService {
 	}
 
 	private void updateData(Book newObj, Book obj) {
-		newObj.setTitulo(obj.getTitulo());
-		newObj.setNome_autor(obj.getNome_autor());
-		newObj.setTexto(obj.getTexto());
+		newObj.setTitulo((obj.getTitulo() == null) ? newObj.getTitulo() : obj.getTitulo());
+		newObj.setNome_autor((obj.getNome_autor() == null) ? newObj.getNome_autor() : obj.getNome_autor());
+		newObj.setTexto((obj.getTexto() == null) ? newObj.getTexto() : obj.getTexto());
 	}
 
-	public Book create(Integer id_cat, Book obj) {
+	public Book create(Integer cat_id, Book obj) {
 		obj.setId(null);
-		Category cat = categoryService.findById(id_cat);
+		Category cat = categoryService.findById(cat_id);
 		obj.setCategoria(cat);
 		return repository.save(obj);
 	}

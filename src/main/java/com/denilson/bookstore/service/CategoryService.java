@@ -40,7 +40,13 @@ public class CategoryService {
 		obj.setDescricao(objDto.getDescricao());
 		return repository.save(obj);
 	}
-
+	
+	@SuppressWarnings("unused")
+	private void updateData(Category obj, CategoryDTO objDto) {
+		obj.setNome((objDto.getNome() == null) ? obj.getNome() : objDto.getNome());
+		obj.setDescricao((objDto.getDescricao() == null) ? obj.getDescricao() : objDto.getDescricao());
+	}
+	
 	public void delete(Integer id) {
 		findById(id);
 		try {
